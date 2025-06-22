@@ -1,0 +1,84 @@
+from PIL import Image
+import os
+
+# Encrypt image by modifying pixel values
+def encrypt_image(input_path, output_path, key):
+    img = Image.open(input_path)
+    pixels = img.load()
+    
+    for i in range(img.size[0]):
+        for j in range(img.size[1]):
+            r, g, b = pixels[i, j]
+            pixels[i, j] = ((r + key) % 256, (g + key) % 256, (b + key) % 256)
+    
+    img.save(output_path)
+    print("Encryption done! Saved as", output_path)
+
+# Decrypt image by reversing the pixel operation
+def decrypt_image(input_path, output_path, key):
+    img = Image.open(input_path)
+    pixels = img.load()
+    
+    for i in range(img.size[0]):
+        for j in range(img.size[1]):
+            r, g, b = pixels[i, j]
+            pixels[i, j] = ((r - key) % 256, (g - key) % 256, (b - key) % 256)
+    
+    img.save(output_path)
+    print("Decryption done! Saved as", output_path)
+
+# Main function
+def main():
+    print("Image Encryption & Decryption")
+    choice = input("Type 'e' to encrypt or 'd' to decrypt: ").lower()
+    input_path = input("Enter input image path (e.g., image.jpg): ")
+    output_path = input("Enter output image path (e.g., encrypted.jpg): ")
+    key = int(input("Enter a key (e.g., 10): "))
+
+    if not os.path.exists(input_path):
+        print("Image file not found!")
+        return
+
+    if choice == 'e':
+        encrypt_image(input_path, output_path, key)
+    elif choice == 'd':
+        decrypt_image(input_path, output_path, key)
+    else:
+        print("Invalid choice!")
+
+if __name__ == "__main__":
+    main()
+
+
+To display encrypted image :
+
+Type: e
+Input image path: Download/test.jpg
+Output path: encrypted.jpg
+Key: 15
+
+To display image:
+
+from PIL import Image
+from IPython.display import display
+
+img = Image.open("encrypted.jpg")
+display(img)
+
+
+To display decrypted image:
+
+Input image path: encrypted.jpg
+Output path: decrypted.jpg
+Key: 15
+
+To display image :
+
+from PIL import Image
+from IPython.display import display
+
+print("Original:")
+display(Image.open("Downloads/test.jpg"))
+
+print("Decrypted:")
+display(Image.open("decrypted.jpg"))
