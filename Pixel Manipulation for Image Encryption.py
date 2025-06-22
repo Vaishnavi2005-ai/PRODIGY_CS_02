@@ -50,14 +50,14 @@ if __name__ == "__main__":
     main()
 
 
-To display encrypted image :
+#To display encrypted image :
 
 Type: e
 Input image path: Download/test.jpg
 Output path: encrypted.jpg
 Key: 15
 
-To display image:
+#To display image:
 
 from PIL import Image
 from IPython.display import display
@@ -66,13 +66,13 @@ img = Image.open("encrypted.jpg")
 display(img)
 
 
-To display decrypted image:
+#To display decrypted image:
 
 Input image path: encrypted.jpg
 Output path: decrypted.jpg
 Key: 15
 
-To display image :
+#To display image :
 
 from PIL import Image
 from IPython.display import display
